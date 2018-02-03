@@ -1,0 +1,89 @@
+<html>
+	<head>
+	<title>AWS</title>
+	</head>
+	<style>
+	.text_2 {
+		font-family: 'Gill Sans';
+		font-size: 30px;
+		color:#FF9D00;
+		text-align: center;
+	}
+	.centerStyle {
+		display: block;
+   		margin-left: auto;
+		margin-right: auto;
+    	width: auto;
+	}
+	.button {
+		height: 30px;
+		width: 30%;
+	}
+	</style>
+	<body>
+		<% if (message==1){%>
+			<dialog open>   
+				<center>
+					<p>
+						The file was deleted from bucket!
+					</p>
+				</center>
+				<center>
+					<button onclick="location.href='http://localhost:8080/list'">
+						OK
+					</button>
+				</center>
+			</dialog>  
+		<%}%>		
+	    <% if (message==2){%>
+			<dialog open>   
+				<center>
+					<p>
+						Message was added to SQS!
+					</p>
+				</center>
+				<center>
+					<button class="btn" onclick="location.href='http://localhost:8080/list'">
+						OK
+					</button>
+				</center>
+			</dialog>  
+		<%}%>	
+		<h2 class="text_2">
+			My bucket
+			<b><%= bucket %></b> :
+		</h2>
+		<div>        
+			<% for(var i=0; i<fields.length; i++) { %>		
+				<div>
+					<a href='<%= adresy[i] %>'>
+						<img src="<%= adresy[i] %>"
+						     alt="<%=names[i]%>"
+							 style="height:200px;"
+							 class="centerStyle">
+					</a>
+				</div>
+				<div>
+					<form id="actionform" class="centerStyle"
+					      name="wartosc"
+						  action="http://localhost:8080/action"
+						  method='get'>
+						<input type="hidden"
+         		            name='klucz'
+							value="<%= fields[i] %>"/>
+							<div style="margin-left: 30%;">
+						<input 
+							class="button1 button"
+							type="submit"
+                            value="Turn"/>
+						<input class="button2 button"
+							type="button"
+                            onclick="location.href='http://localhost:8080/delete?klucz=<%= fields[i] %>'"
+							value="Delete"/>
+						</div>
+					</form>
+				</div>		
+			<% } %>   
+		</div>
+	</body>
+</html>

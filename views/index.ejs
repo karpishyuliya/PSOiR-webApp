@@ -1,0 +1,111 @@
+<html>
+	<head>
+		<title>AWS</title>
+	</head>
+	<style>
+	.submit_btn {
+		height: 50px; 
+		width:300px;
+	}
+	.image {
+		max-height: 150px;
+		display: block;
+   		margin-left: auto;
+		margin-right: auto;
+    	width: auto;
+	}
+	.my_bucket_text {
+		font-family: 'Gill Sans';
+		font-size: 30px;
+		color:#FF9D00;
+		text-decoration: none;
+		text-align: center;
+		font-weight: bold;
+	}
+	.text_1 {
+		font-family: 'Gill Sans';
+		font-size: 40px;
+		color:black;
+		text-decoration: none;
+		text-align: center;
+		font-weight: bold;
+	}
+
+	.text_2 {
+		font-family: 'Gill Sans';
+		font-size: 25px;
+		color:black;
+		text-align: center;
+	}
+
+	.my_style {
+		text-align: center;
+	}
+
+	.my_style_2 {
+		width: 300px;
+		margin-top: 15px;
+	}
+
+	::-webkit-file-upload-button {
+  background: #FF9D00;
+  color: black;
+  font-size: 15px;
+  font-weight: bold;
+  padding: 1em;
+}
+	
+
+	</style>
+	
+
+	<body style="position: absolute; width: 100%;">
+		<div>
+		<% if (message==1){%>
+			<dialog open >  
+				<center>
+					<h3>
+						Success!
+					</h3>
+				</center>  
+				<center>
+					<p>
+						File add to <%=bucket%>!
+					</p>
+				</center>
+				<center>
+					<button onclick="location.href='http://localhost:8080'">
+						OK
+					</button>
+				</center>
+			</dialog>  
+		<%}%>	
+		<div>	
+			<div> 
+				<div class="my_style">
+					<form action="https://s3-us-west-2.amazonaws.com/<%=bucket%>/"
+					
+                          method="POST"
+						  enctype="multipart/form-data">	
+						<% if (message==0){%>
+							<% fields.forEach(function(elem){ %>
+								<input type="hidden" name="<%= elem.name  %>" value="<%=elem.value %>"/>
+							<%}); %> 
+						<%}%>
+						<p class="text_1">
+							<b> Add new picture to the AWS bucket <%=bucket%></b>
+						</p>
+						<input class="my_style_2" style="height: 50px;" type="file" accept=".jpg,.png" name="file">
+						<br>
+						<input class="my_style_2 text_2" style="height: 50px;" type="submit" class="submit_btn" value="Add to bucket"/>
+					</form>
+				</div>
+			</div>
+		</div>
+		<a href="http://localhost:8080/list" class="my_bucket_text">
+			<img class="image" src="https://amimoto-ami.com/wp-content/uploads/2016/03/AWS_Simple_Icons_Storage_Amazon_S3.svg_-20160327090241.png">
+			<div class="my_bucket_text"> My AWS bucket <%=bucket%></div>
+		</a>
+	</div>
+	</body>
+</html>
